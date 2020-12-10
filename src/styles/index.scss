@@ -11,3 +11,34 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+  h1 {
+      color: black;
+      size: 24px;
+      font-style: italic;
+  }
+
+  h2 {
+      size: 18px;
+  }
+
+  form {
+      width:100%;
+      max-width: 500px;
+  }
+
+  .navbar {
+ background-color: rgb(90, 218, 165);
+ margin-bottom: 100px;
+}
+
+.footer {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 18px;
+}
+
+.fas {
+  color: rgb(146, 79, 23);
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.404);
+}
