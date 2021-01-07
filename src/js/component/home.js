@@ -8,6 +8,7 @@ import { array } from "prop-types";
 //create your first component
 export function Home() {
 	const [list, setList] = useState([
+		//initial state (list=show state, setlist=method to 'change the state')
 		{ label: "Walk the dog", done: false }, //this is an array
 		{ label: "Take out the trash", done: false }, //this is an array
 		{ label: "Do the dishes", done: false }, //this is an array
@@ -28,9 +29,16 @@ export function Home() {
 			// aux.push(todo) //extra
 			// setList(aux) //secondary method
 
-			setList(list.concat([{ label: todo, done: false }]));
+			// setList(list.concat([{ label: todo, done: false }]));
+			setList([...list, { label: todo, done: false }]); //dif way to line32 (...=spread operator)
 			setTodo("");
 		}
+	};
+
+	const deleteToDo = i => {
+		const newList = list.filter((item, index) => index != i);
+		console.log(newList);
+		setList(newList);
 	};
 
 	return (
@@ -41,8 +49,8 @@ export function Home() {
 						<a className="navbar-logo" href="#">
 							<img
 								src="http://topnotchmarketingsolutionsllc.com/wp-content/uploads/2018/11/Full_straight-copy-80x80.png"
-								width="60"
-								height="60"
+								width="80"
+								height="80"
 								alt=""
 								loading="lazy"
 							/>
@@ -50,14 +58,14 @@ export function Home() {
 					</div>
 					<div className="col-8 text-center">
 						<a className="navbar-brand mx-auto" href="#">
-							<h2>TODO List</h2>
+							<h2 />
 						</a>
 					</div>
 					<div className="col-2" />
 				</div>
 			</nav>
-			<div className="d-flex flex-column align-items-center justify-content-center">
-				<h1>My TODO list</h1>
+			<div className="formtotal d-flex flex-column align-items-center justify-content-center">
+				<h1>MY TO-DO LIST</h1>
 				<form onSubmit={e => e.preventDefault()}>
 					<ul className="list-unstyled">
 						<li>
@@ -77,7 +85,10 @@ export function Home() {
 									{item.label}{" "}
 									<span>
 										{" "}
-										<FontAwesomeIcon icon={faTimes} />{" "}
+										<FontAwesomeIcon
+											onClick={() => deleteToDo(index)}
+											icon={faTimes}
+										/>{" "}
 									</span>{" "}
 								</li>
 							);
@@ -92,7 +103,7 @@ export function Home() {
 					</ul>
 				</form>
 			</div>
-			<footer className="footer fixed-bottom w-100">
+			<footer className="footer w-100">
 				<p>
 					Made with the power of <i className="fas fa-coffee" /> by
 					Chris Angelos

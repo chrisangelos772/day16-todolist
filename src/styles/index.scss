@@ -1,4 +1,10 @@
 @import "~bootstrap/scss/bootstrap.scss";
+@font-face {
+  font-family: "Cyberpunk";
+  src: url("../fonts/Cyberpunk.ttf");
+}
+
+
 
 /* 
 
@@ -13,23 +19,28 @@
 */
 
   h1 {
-      color: black;
-      size: 24px;
-      font-style: italic;
-  }
-
-  h2 {
-      size: 18px;
+      font-family: "Cyberpunk";
+      margin-bottom: 50px;
+        color: rgb(253, 229, 15);
+        text-shadow: 2px 2px 1px #000000;
+        font-size: 60px;
+        size: 72px;
   }
 
   form {
+      border-style: solid;
+      margin-bottom: 80px;
       width:100%;
-      max-width: 500px;
+      max-width: 480px;
   }
 
   .navbar {
- background-color: rgb(90, 218, 165);
- margin-bottom: 100px;
+      height: 175px;
+ background-image: url("https://wallpapercave.com/wp/wp4849516.jpg");
+ margin-bottom: 80px;
+ background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .footer {
@@ -41,4 +52,8 @@
 .fas {
   color: rgb(146, 79, 23);
   text-shadow: 1px 1px rgba(255, 255, 255, 0.404);
+}
+
+ul {
+    background: white;
 }
