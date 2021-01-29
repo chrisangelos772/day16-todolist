@@ -7,21 +7,48 @@ import { array } from "prop-types";
 
 //create your first component
 export function Home() {
-	const [list, setList] = useState([
-		//initial state (list=show state, setlist=method to 'change the state')
-		{ label: "Walk the dog", done: false }, //this is an array
-		{ label: "Take out the trash", done: false }, //this is an array
-		{ label: "Do the dishes", done: false }, //this is an array
-		{ label: "Finish React HW", done: false }, //this is an array
-		{ label: "Kick ass in Warzone", done: false }, //this is an array
-		{ label: "Sleep like a baby", done: false } //this is an array
-	]);
+	const urlApi =
+		"https://assets.breatheco.de/apis/fake/todos/user/christodos";
+	const [currentTodo, setCurrentTodo] = useState("");
+	const [list, setList] = useState([]);
 
 	const [todo, setTodo] = useState("");
 
-	// useEffect(() => {
-	// 	inputRef.current.addEventListener("keypress", handleKeyPress);
-	// }, []);
+	const syncList = () => {
+		return fetch(urlApi)
+			.then(resp => {
+				return resp.json();
+			})
+			.then(data => {
+				setList(data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	};
+
+	useEffect(() => {
+		syncList();
+	}, []);
+
+	const updateList = newList => {
+		return fetch(urlApi, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(newList)
+		})
+			.then(resp => {
+				return resp.json();
+			})
+			.then(data => {
+				syncList();
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	};
 
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
@@ -30,7 +57,7 @@ export function Home() {
 			// setList(aux) //secondary method
 
 			// setList(list.concat([{ label: todo, done: false }]));
-			setList([...list, { label: todo, done: false }]); //dif way to line32 (...=spread operator)
+			updateList([...list, { label: todo, done: false }]); //dif way to line32 (...=spread operator)
 			setTodo("");
 		}
 	};
@@ -38,7 +65,11 @@ export function Home() {
 	const deleteToDo = i => {
 		const newList = list.filter((item, index) => index != i);
 		console.log(newList);
-		setList(newList);
+		updateList(newList);
+	};
+
+	const clearAll = () => {
+		updateList([{ label: "Sample Task", done: false }]);
 	};
 
 	return (
@@ -93,7 +124,8 @@ export function Home() {
 								</li>
 							);
 						})}
-						<li>
+						<li className="items">
+							<span onClick={clearAll}> Clear All </span>
 							{list.length} item
 							{list.length > 1 || list.length === 0
 								? "s"

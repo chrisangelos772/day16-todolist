@@ -57,3 +57,16 @@
 ul {
     background: white;
 }
+
+.items {
+    margin-top: 10px;
+    background: white;
+    display: flex;
+    font-size: 12px;
+    justify-content: flex-end;
+    
+    span {
+        margin-right: auto;
+        cursor: pointer;
+    }
+}
